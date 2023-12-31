@@ -1,25 +1,18 @@
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
+import feature.login.presentation.LoginScreen
+import feature.login.presentation.LoginController
+import ui.Screen
+import ui.theme.SoigneMoiTheme
+import ui.util.NavigationHost
+import ui.util.composable
+import ui.util.rememberNavController
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App() {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
+    SoigneMoiTheme {
+        /*var showContent by remember { mutableStateOf(false) }
         val greeting = remember { Greeting().greet() }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Button(onClick = { showContent = !showContent }) {
@@ -31,6 +24,24 @@ fun App() {
                     Text("Compose: $greeting")
                 }
             }
-        }
+        }*/
+        val navController by rememberNavController(Screen.Login.route)
+
+        NavigationHost(navController) {
+            composable(Screen.Login.route) {
+                val controller = LoginController()
+                val state by controller.state.collectAsState()
+                LoginScreen(
+                    navController = navController,
+                    state = state,
+                    onEvent = controller::onEvent,
+                    uiEvent = controller.eventFlow
+                )
+            }
+            composable(Screen.EntryList.route) {
+
+            }
+        }.build()
+
     }
 }
