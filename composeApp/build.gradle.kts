@@ -33,6 +33,7 @@ kotlin {
             implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
             implementation("io.ktor:ktor-client-auth:$ktorVersion")
 
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
         }

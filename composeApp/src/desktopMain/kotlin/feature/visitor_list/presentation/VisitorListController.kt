@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class VisitorListController(
-    patientService: PatientService
+    private val patientService: PatientService
 ) {
 
     private val _state = MutableStateFlow(VisitorListState())
@@ -24,7 +24,10 @@ class VisitorListController(
 
     fun onEvent(event: VisitorListEvent) {
         when (event) {
-            is VisitorListEvent.CheckVisitorDetails -> TODO()
+            is VisitorListEvent.CheckVisitorDetails -> CoroutineScope(Dispatchers.IO).launch {
+                val details = patientService.getPatientDetails(event.visitorId)
+                _state.update { it.copy(patientData = details) }
+            }
         }
     }
 

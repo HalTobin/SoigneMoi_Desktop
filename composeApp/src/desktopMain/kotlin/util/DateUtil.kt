@@ -1,5 +1,6 @@
-package ui.util
+package util
 
+import kotlinx.datetime.LocalDateTime
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -8,6 +9,11 @@ import java.util.concurrent.TimeUnit
 object DateUtil {
 
     val Date.formattedDate: String get() {
+        val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale("fr", "FR"))
+        return dateFormat.format(this)
+    }
+
+    val LocalDateTime.formattedDate: String get() {
         val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale("fr", "FR"))
         return dateFormat.format(this)
     }

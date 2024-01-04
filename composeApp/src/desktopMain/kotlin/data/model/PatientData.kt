@@ -1,7 +1,9 @@
 package data.model
 
-import java.util.*
+import kotlinx.datetime.LocalDateTime
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class PatientData(
     val id: Int,
     val name: String,
@@ -10,8 +12,8 @@ data class PatientData(
     val appointment: Appointment,
     val doctor: Doctor,
     val specialty: Specialty,
-    val startDate: Date,
-    val endDate: Date,
+    val startDate: LocalDateTime,
+    val endDate: LocalDateTime,
     val notes: List<Note>,
     val prescriptions: List<Prescription>
 )

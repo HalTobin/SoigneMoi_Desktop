@@ -59,7 +59,7 @@ fun VisitorListScreen(
                         itemsIndexed(state.patients) { index, patient ->
                             Column(modifier = Modifier
                                 .clickable {
-                                    //navController.navigate(Screen.PatientDetails.route + "?patientId=${patient.id}")
+                                    onEvent(VisitorListEvent.CheckVisitorDetails(patient.id))
                                 }) {
                                 PatientItem(patient = patient)
                                 if (index < state.patients.lastIndex) Divider(modifier = Modifier
@@ -70,7 +70,7 @@ fun VisitorListScreen(
                         }
                     }
                 }
-                Divider(Modifier.fillMaxHeight(), thickness = 1.dp)
+                Divider(Modifier.width(1.dp).fillMaxHeight(), thickness = 1.dp)
                 Column(modifier = Modifier.weight(2f)) {
                     if (state.patientData != null) {
                         Column(modifier = Modifier.fillMaxWidth()) {

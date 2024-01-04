@@ -1,12 +1,14 @@
 package data.model
 
-import java.util.Date
+import kotlinx.datetime.LocalDateTime
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Prescription(
     val id: Int,
     val appointmentId: Int,
-    val start: Date,
-    val end: Date,
+    val start: LocalDateTime,
+    val end: LocalDateTime,
     val entries: List<PrescriptionEntry>,
 ) {
 
@@ -18,7 +20,5 @@ data class Prescription(
         }
         return result
     }
-
-    val isStillUpToDate: Boolean get() = end.time > System.currentTimeMillis()
 
 }

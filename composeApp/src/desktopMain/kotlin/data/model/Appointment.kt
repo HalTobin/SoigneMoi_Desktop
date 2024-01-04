@@ -1,12 +1,14 @@
 package data.model
 
-import java.util.Date
+import kotlinx.datetime.LocalDateTime
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Appointment(
     val id: Int,
     val visitorId: Int,
-    val startDate: Date,
-    val endDate: Date,
+    val startDate: LocalDateTime,
+    val endDate: LocalDateTime,
     val reason: String,
     val specialty: String,
     val doctor: String

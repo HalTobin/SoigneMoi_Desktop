@@ -1,6 +1,7 @@
 package data.api
 
 import data.model.Patient
+import data.model.PatientData
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.auth.*
@@ -45,6 +46,15 @@ class PatientService(token: String) {
         }
         return if (response.status == HttpStatusCode.OK) response.body()
         else emptyList()
+    }
+
+    suspend fun getPatientDetails(patientId: Int): PatientData? {
+        val response = client.get {
+            endPoint("secretary/patient_details")
+            parameter("patientId", patientId)
+        }
+        return if (response.status == HttpStatusCode.OK) response.body()
+        else null
     }
 
 }
