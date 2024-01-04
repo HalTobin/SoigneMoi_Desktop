@@ -1,5 +1,9 @@
 package feature.login.presentation
 
+import data.api.auth.AuthService
+import data.api.auth.LoginRequest
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -8,7 +12,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class LoginController(
-    //private val sessionManager: SessionManager
+    private val authService: AuthService
 ) {
 
     private val _state = MutableStateFlow(LoginState())
@@ -34,21 +38,12 @@ class LoginController(
                     LoginField.PASSWORD -> _state.update { it.copy(password = event.text) }
                 }
             }
-            is LoginEvent.ChangeSavedLogin -> {
-                //sessionManager.rememberLogin = event.state
-                //_state.update { it.copy(saveLogin = sessionManager.rememberLogin) }
-            }
-            is LoginEvent.InvertShowPassword -> _state.update { it.copy(showPassword = !_state.value.showPassword) }
             is LoginEvent.Connect -> {
-                /*_state.update { it.copy(error = false) }
-                try {
-                    val response = sessionManager.connect(LoginRequest(state.value.username, state.value.password), _state.value.saveLogin)
-                    if (response.role != "Doctor") _state.update { it.copy(error = true) }
-                    else _eventFlow.emit(UiEvent.ConnectionSuccess)
-                    Log.i("CONNECTION", "Role: ${response.role} Token: ${response.accessToken}")
-                } catch (exception: IllegalStateException) {
-                    _state.update { it.copy(error = true) }
-                }*/
+                CoroutineScope(Dispatchers.IO).launch {
+                    val response = authService.login(LoginRequest(_state.value.username, _state.value.password))
+                    if (response != null && response.role == "Secretary") _eventFlow.emit(UiEvent.ConnectionSuccess)
+                    System.out.println(response.toString())
+                }
             }
         }
     }

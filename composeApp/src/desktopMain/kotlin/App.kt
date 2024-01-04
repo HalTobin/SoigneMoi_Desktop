@@ -1,6 +1,8 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import data.api.auth.AuthService
 import feature.login.presentation.LoginScreen
 import feature.login.presentation.LoginController
 import ui.Screen
@@ -8,9 +10,13 @@ import ui.theme.SoigneMoiTheme
 import ui.util.NavigationHost
 import ui.util.composable
 import ui.util.rememberNavController
+import util.ConstUrl
 
 @Composable
 fun App() {
+
+    val authService = AuthService(ConstUrl.BASE_URL)
+
     SoigneMoiTheme {
         /*var showContent by remember { mutableStateOf(false) }
         val greeting = remember { Greeting().greet() }
@@ -29,7 +35,7 @@ fun App() {
 
         NavigationHost(navController) {
             composable(Screen.Login.route) {
-                val controller = LoginController()
+                val controller = remember { LoginController(authService) }
                 val state by controller.state.collectAsState()
                 LoginScreen(
                     navController = navController,

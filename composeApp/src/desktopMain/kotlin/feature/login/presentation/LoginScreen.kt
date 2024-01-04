@@ -92,15 +92,6 @@ fun LoginScreen(
                     onValueChange = { onEvent(LoginEvent.ChangeField(LoginField.PASSWORD, it)) }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Checkbox(
-                        checked = state.saveLogin,
-                        onCheckedChange = { onEvent(LoginEvent.ChangeSavedLogin(it)) }
-                    )
-                    Text(modifier = Modifier.padding(start = 16.dp),
-                        text = Strings.REMEMBER_LOGIN)
-                }
-                Spacer(modifier = Modifier.height(16.dp))
                 Button(
                     modifier = Modifier.fillMaxWidth(0.6f),
                     onClick = { onEvent(LoginEvent.Connect) }) {
