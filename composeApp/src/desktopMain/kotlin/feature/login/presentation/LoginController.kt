@@ -1,7 +1,7 @@
 package feature.login.presentation
 
-import data.api.auth.AuthService
-import data.api.auth.LoginRequest
+import data.api.AuthService
+import data.api.LoginRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,15 +21,6 @@ class LoginController(
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
-    init {
-        /*val id = sessionManager.loadCredentials()
-        _state.update { it.copy(
-            saveLogin = sessionManager.rememberLogin,
-            username = id.mail,
-            password = id.password
-        ) }*/
-    }
-
     fun onEvent(event: LoginEvent) {
         when (event) {
             is LoginEvent.ChangeField -> {
@@ -41,7 +32,10 @@ class LoginController(
             is LoginEvent.Connect -> {
                 CoroutineScope(Dispatchers.IO).launch {
                     val response = authService.login(LoginRequest(_state.value.username, _state.value.password))
-                    if (response != null && response.role == "Secretary") _eventFlow.emit(UiEvent.ConnectionSuccess)
+                    if (response != null && response.role == "Secretary") {
+                        authService.setToken(response.accessToken)
+                        _eventFlow.emit(UiEvent.ConnectionSuccess)
+                    }
                     System.out.println(response.toString())
                 }
             }

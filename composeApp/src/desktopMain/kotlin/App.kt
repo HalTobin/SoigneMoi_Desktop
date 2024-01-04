@@ -2,9 +2,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import data.api.auth.AuthService
+import data.api.AuthService
+import data.api.PatientService
 import feature.login.presentation.LoginScreen
 import feature.login.presentation.LoginController
+import feature.visitor_list.presentation.VisitorListController
+import feature.visitor_list.presentation.VisitorListScreen
 import ui.Screen
 import ui.theme.SoigneMoiTheme
 import ui.util.NavigationHost
@@ -15,22 +18,9 @@ import util.ConstUrl
 @Composable
 fun App() {
 
-    val authService = AuthService(ConstUrl.BASE_URL)
+    val authService = AuthService()
 
     SoigneMoiTheme {
-        /*var showContent by remember { mutableStateOf(false) }
-        val greeting = remember { Greeting().greet() }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource("compose-multiplatform.xml"), null)
-                    Text("Compose: $greeting")
-                }
-            }
-        }*/
         val navController by rememberNavController(Screen.Login.route)
 
         NavigationHost(navController) {
@@ -45,7 +35,15 @@ fun App() {
                 )
             }
             composable(Screen.EntryList.route) {
-
+                val controller = remember {
+                    VisitorListController(PatientService(authService.token ?: ""))
+                }
+                val state by controller.state.collectAsState()
+                VisitorListScreen(
+                    navController = navController,
+                    state = state,
+                    onEvent = controller::onEvent
+                )
             }
         }.build()
 

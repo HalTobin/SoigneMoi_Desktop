@@ -31,6 +31,7 @@ kotlin {
             implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
             implementation("io.ktor:ktor-client-logging:$ktorVersion")
             implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+            implementation("io.ktor:ktor-client-auth:$ktorVersion")
 
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
