@@ -65,7 +65,7 @@ fun LoginScreen(
                 )
             }
             Column(
-                modifier = Modifier.fillMaxWidth(0.75f),
+                modifier = Modifier.fillMaxWidth(0.4f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 OutlinedTextField(
