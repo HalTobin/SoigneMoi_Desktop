@@ -1,4 +1,4 @@
-package data.api.auth
+package data.api
 
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -9,6 +9,7 @@ import io.ktor.http.*
 import io.ktor.util.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.Serializable
+import util.ConstUrl.BASE_URL
 
 @Serializable
 data class LoginRequest(val mail: String, val password: String)
@@ -17,7 +18,11 @@ data class LoginRequest(val mail: String, val password: String)
 data class TokenResponse(val accessToken: String, val tokenType: String, val role: String, val validity: Long)
 
 @OptIn(InternalAPI::class)
-class AuthService(private val baseUrl: String) {
+class AuthService {
+
+    var token: String? = null
+        private set
+
     private val client = HttpClient {
         install(Logging)
         install(ContentNegotiation) {
@@ -27,7 +32,7 @@ class AuthService(private val baseUrl: String) {
 
     fun HttpRequestBuilder.endPoint(path: String) {
         url {
-            takeFrom(baseUrl)
+            takeFrom(BASE_URL)
             path(path)
             contentType(ContentType.Application.Json)
         }
@@ -40,5 +45,9 @@ class AuthService(private val baseUrl: String) {
         }
         return if (response.status == HttpStatusCode.OK) response.body()
         else null
+    }
+
+    fun setToken(token: String) {
+        this.token = token
     }
 }
