@@ -12,9 +12,6 @@ import kotlinx.serialization.encoding.Encoder
 import java.text.SimpleDateFormat
 import java.util.*
 
-/*@Serializable
-private class DateWrapper(val date: Date)*/
-
 @OptIn(ExperimentalSerializationApi::class)
 @Serializer(forClass = Date::class)
 object DateSerializer : KSerializer<Date> {
