@@ -1,7 +1,8 @@
 package data.model
 
-import kotlinx.datetime.LocalDateTime
+import data.api.DateSerializer
 import kotlinx.serialization.Serializable
+import java.util.*
 
 @Serializable
 data class PatientData(
@@ -12,8 +13,10 @@ data class PatientData(
     val appointment: Appointment,
     val doctor: Doctor,
     val specialty: Specialty,
-    val startDate: LocalDateTime,
-    val endDate: LocalDateTime,
+    @Serializable(with = DateSerializer::class)
+    val startDate: Date,
+    @Serializable(with = DateSerializer::class)
+    val endDate: Date,
     val notes: List<Note>,
     val prescriptions: List<Prescription>
 )

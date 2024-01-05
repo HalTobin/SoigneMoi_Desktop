@@ -1,7 +1,8 @@
 package data.model
 
-import kotlinx.datetime.LocalDateTime
+import data.api.DateSerializer
 import kotlinx.serialization.Serializable
+import java.util.*
 
 @Serializable
 data class Note(
@@ -11,5 +12,6 @@ data class Note(
     val userId: Int,
     val title: String,
     val content: String,
-    val date: LocalDateTime
+    @Serializable(with = DateSerializer::class)
+    val date: Date
 )
