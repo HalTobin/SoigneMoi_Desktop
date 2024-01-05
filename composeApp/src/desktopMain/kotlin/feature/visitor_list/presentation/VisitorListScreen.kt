@@ -21,6 +21,7 @@ import data.Strings
 import feature.visitor_list.presentation.PatientDetailsTab.Companion.TAB_ITEMS
 import feature.visitor_list.presentation.component.NotePage
 import feature.visitor_list.presentation.component.PatientItem
+import feature.visitor_list.presentation.component.PrescriptionDialog
 import kotlinx.coroutines.launch
 import ui.component.DisconnectHeader
 import ui.component.PatientHeader
@@ -44,7 +45,7 @@ fun VisitorListScreen(
             DisconnectHeader(onDisconnect = { navController.navigateBack() })
             Row {
                 Column(
-                    modifier = Modifier.padding(top = 16.dp).weight(1f),
+                    modifier = Modifier.padding(top = 16.dp).width(310.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
@@ -74,7 +75,7 @@ fun VisitorListScreen(
                     }
                 }
                 Divider(Modifier.width(1.dp).fillMaxHeight(), thickness = 1.dp)
-                Column(modifier = Modifier.weight(2f)) {
+                Column(modifier = Modifier.weight(1f)) {
                     if (state.patientData != null) {
                         Column(modifier = Modifier.fillMaxWidth()) {
                             PatientHeader(patient = state.patientData)

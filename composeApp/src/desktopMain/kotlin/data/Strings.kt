@@ -14,6 +14,8 @@ object Strings {
 
     const val SELECT_PATIENT = "Sélectionner un patient"
 
+    const val PRESCRIPTION_ID = "Prescription n°"
+
     const val DAILY = "Jour"
     const val WEEKLY = "Semaine"
     const val MONTHLY = "Mois"

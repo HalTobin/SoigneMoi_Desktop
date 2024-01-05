@@ -26,7 +26,6 @@ class PatientService(token: String) {
         install(Auth) {
             bearer {
                 loadTokens { BearerTokens(accessToken = token, refreshToken = "") }
-                //refreshTokens {  }
             }
         }
     }
