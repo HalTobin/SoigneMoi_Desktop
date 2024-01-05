@@ -1,6 +1,7 @@
 package feature.visitor_list.presentation.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,7 +21,7 @@ import util.DateUtil.formattedDate
 fun PrescriptionItem(
     modifier: Modifier = Modifier,
     prescription: Prescription,
-    //onSelect: (Prescription) -> Unit
+    onSelect: (Prescription) -> Unit
 ) {
 
     @Composable
@@ -33,7 +34,7 @@ fun PrescriptionItem(
         Column(modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
-            //.clickable { onSelect(prescription) }
+            .clickable { onSelect(prescription) }
             .background(MaterialTheme.colorScheme.surface)
             .padding(4.dp)
         ) {
