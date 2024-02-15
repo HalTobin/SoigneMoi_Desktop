@@ -40,8 +40,7 @@ class PatientService(token: String) {
 
     suspend fun getPatients(): List<Patient> {
         val response = client.get {
-            endPoint("secretary/today_patients")
-            //setHea()
+            endPoint("api/secretary/today_patients")
         }
         return if (response.status == HttpStatusCode.OK) response.body()
         else emptyList()
@@ -49,7 +48,7 @@ class PatientService(token: String) {
 
     suspend fun getPatientDetails(patientId: Int): PatientData? {
         val response = client.get {
-            endPoint("secretary/patient_details")
+            endPoint("api/secretary/patient_details")
             parameter("patientId", patientId)
         }
         return if (response.status == HttpStatusCode.OK) response.body()

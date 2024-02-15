@@ -49,7 +49,7 @@ fun PrescriptionDialog(
             )
             Text(
                 modifier = Modifier.padding(bottom = 8.dp),
-                text = "Du ${prescription.start.formattedDate} au ${prescription.end.formattedDate}"
+                text = "${prescription.start.formattedDate} - ${prescription.end.formattedDate}"
             )
             LazyColumn(modifier = Modifier.fillMaxWidth()) {
                 items(prescription.entries) {entry ->

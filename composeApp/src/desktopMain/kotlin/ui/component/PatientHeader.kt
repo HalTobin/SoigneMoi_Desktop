@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import data.model.PatientData
+import util.DateUtil.formattedDate
 
 @Composable
 fun PatientHeader(patient: PatientData) = Column(modifier = Modifier.fillMaxWidth()) {
@@ -26,6 +27,10 @@ fun PatientHeader(patient: PatientData) = Column(modifier = Modifier.fillMaxWidt
         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
         text = patient.appointment.reason,
         style = MaterialTheme.typography.titleMedium
+    )
+    Text(
+        modifier = Modifier.padding(start = 8.dp, bottom = 4.dp),
+        text = "${patient.appointment.startDate.formattedDate} - ${patient.appointment.endDate.formattedDate}"
     )
 }
 

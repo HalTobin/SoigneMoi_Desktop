@@ -36,7 +36,6 @@ class LoginController(
                         authService.setToken(response.accessToken)
                         _eventFlow.emit(UiEvent.ConnectionSuccess)
                     }
-                    System.out.println(response.toString())
                 }
             }
         }

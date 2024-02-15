@@ -40,7 +40,7 @@ class AuthService {
 
     suspend fun login(credentials: LoginRequest): TokenResponse? {
         val response = client.post {
-            endPoint("auth/login")
+            endPoint("api/auth/login")
             setBody(credentials)
         }
         return if (response.status == HttpStatusCode.OK) response.body()
